@@ -16,6 +16,20 @@ import * as gameService from './services/gameService';
 function App() {
     const [games, setGames] = useState([]);
 
+    const addComment = (gameId, comment) => {
+        setGames(state => {
+            const game = state.find(x => x._id == gameId);
+            console.log(game);
+            const comments = game.comments || [];
+            comments.push(comment);
+
+            return [
+                ...state.filter(x => x._id !== gameId),
+                {...game, comments}
+            ]
+        });
+    }
+
     useEffect(() => {
         gameService.getAll()
             .then(result => {
@@ -40,14 +54,14 @@ function App() {
                     {/* Create Page ( Only for logged-in users ) */}
                     <Route path="/create" element={<Create />} />
                     {/* Catalogue */}
-                    <Route path="/allgames" element={<Catalog games={games} />} />
+                    <Route path="/catalog" element={<Catalog games={games} />} />
+                     {/*Details Page*/}
+                     <Route path="/catalog/:gameId" element={<Details games={games} addComment={addComment} />} />
                 </Routes>
             </main>
 
             {/* Edit Page ( Only for the creator )*/}
-            {/* <Edit /> */}
-            {/*Details Page*/}
-            {/* <Details /> */}
+            {/* <Edit /> */}           
 
         </div>
 
