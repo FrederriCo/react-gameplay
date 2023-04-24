@@ -8,26 +8,33 @@ import Edit from './components/Edit/Edit';
 import Details from './components/Details/Details';
 import Catalog from './components/Catalog/Catalog';
 
+import { Route, Routes } from 'react-router-dom';
+
 function App() {
     return (
         <div id="box">
             <Header />
+
             {/* Main Content */}
-            <main id="main-content"></main>
-            {/*Home Page*/}
-            <Home />
+            <main id="main-content">
+                {/*Home Page*/}
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                </Routes>
+            </main>
+
             {/* Login Page ( Only for Guest users ) */}
-            <Login />
+            {/* <Login /> */}
             {/* Register Page ( Only for Guest users ) */}
-           <Register />
+            {/* <Register /> */}
             {/* Create Page ( Only for logged-in users ) */}
-            <Create />
+            {/* <Create /> */}
             {/* Edit Page ( Only for the creator )*/}
-            <Edit />
+            {/* <Edit /> */}
             {/*Details Page*/}
-            <Details />
+            {/* <Details /> */}
             {/* Catalogue */}
-           <Catalog />
+            {/* <Catalog /> */}
         </div>
 
     );
