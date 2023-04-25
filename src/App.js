@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import uniqid from 'uniqid';
 
 import './App.css';
 import Header from './components/Header/Header';
@@ -15,6 +16,7 @@ import * as gameService from './services/gameService';
 
 function App() {
     const [games, setGames] = useState([]);
+    const navigate = useNavigate();
 
     const addComment = (gameId, comment) => {
         setGames(state => {
@@ -28,7 +30,19 @@ function App() {
                 {...game, comments}
             ]
         });
-    }
+    };
+
+    const addGameHandler = (gameData) => {
+        setGames(state => [
+            ...state,
+            {
+                ...gameData,
+                _id: uniqid(),
+            },
+        ]);
+
+        navigate('/catalog');
+    };
 
     useEffect(() => {
         gameService.getAll()
@@ -52,7 +66,7 @@ function App() {
                     {/* Register Page ( Only for Guest users ) */}
                     <Route path="/register" element={<Register />} />
                     {/* Create Page ( Only for logged-in users ) */}
-                    <Route path="/create" element={<Create />} />
+                    <Route path="/create" element={<Create addGameHandler={addGameHandler} />} />
                     {/* Catalogue */}
                     <Route path="/catalog" element={<Catalog games={games} />} />
                      {/*Details Page*/}
