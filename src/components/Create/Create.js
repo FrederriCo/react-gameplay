@@ -22,7 +22,7 @@ const Create = () => {
                 <div className="container">
                     <h1>Create Game</h1>
                     <label htmlFor="leg-title">Legendary title:</label>
-                    <input
+                     <input
                         type="text"
                         id="title"
                         name="title"
